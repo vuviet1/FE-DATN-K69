@@ -1,0 +1,40 @@
+export default {
+  'menu.welcome': 'Welcome',
+  'menu.dashboard': 'Dashboard',
+  'menu.dashboard.lecturer': 'Lecturer Dashboard',
+  'menu.dashboard.analysis': 'Academic Analysis',
+  'menu.dashboard.monitor': 'Progress Monitor',
+  'menu.dashboard.workplace': 'Workplace',
+
+  'menu.students': 'Student Management',
+  'menu.students.list': 'Student List',
+  'menu.students.warning': 'Academic Warning',
+
+  'menu.classes': 'Course Classes',
+  'menu.classes.list': 'Class List',
+  'menu.classes.schedule': 'Teaching Schedule',
+
+  'menu.grades': 'Grade Management',
+  'menu.grades.entry': 'Enter Grades',
+  'menu.grades.transcript': 'Summary Transcript',
+
+  'menu.attendance': 'Attendance & Check-in',
+  'menu.attendance.checkin': 'Daily Attendance',
+  'menu.attendance.report': 'Attendance Report',
+
+  'menu.home': 'Home',
+  'menu.admin': 'System Admin',
+  'menu.admin.sub-page': 'Sub-Page',
+  'menu.login': 'Login',
+  'menu.register': 'Register',
+  'menu.register-result': 'Register Result',
+  'menu.account': 'Lecturer Account',
+  'menu.account.center': 'Personal Profile',
+  'menu.account.settings': 'Account Settings',
+  'menu.account.logout': 'Logout',
+  'menu.exception': 'Exception',
+  'menu.exception.not-permission': '403 Forbidden',
+  'menu.exception.not-find': '404 Not Found',
+  'menu.exception.server-error': '500 Server Error',
+  'menu.chatbot': 'AI Lecturer Assistant',
+};

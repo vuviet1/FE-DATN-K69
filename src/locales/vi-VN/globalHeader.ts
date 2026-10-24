@@ -1,0 +1,18 @@
+export default {
+  'component.globalHeader.search': 'Tìm kiếm sinh viên, lớp, môn học...',
+  'component.globalHeader.search.example1': 'Tìm MSSV: 2021001',
+  'component.globalHeader.search.example2': 'Lớp: CNTT1-K65',
+  'component.globalHeader.search.example3': 'Môn: Lập trình Web',
+  'component.globalHeader.help': 'Trợ giúp',
+  'component.globalHeader.historyVersion': 'Lịch sử phiên bản',
+  'component.globalHeader.notification': 'Thông báo',
+  'component.globalHeader.notification.empty': 'Bạn đã xem hết thông báo.',
+  'component.globalHeader.message': 'Tin nhắn',
+  'component.globalHeader.message.empty': 'Không có tin nhắn mới.',
+  'component.globalHeader.event': 'Lịch thi / Sự kiện',
+  'component.globalHeader.event.empty': 'Không có sự kiện sắp diễn ra.',
+  'component.noticeIcon.clear': 'Xóa hết',
+  'component.noticeIcon.cleared': 'Đã xóa',
+  'component.noticeIcon.empty': 'Không có thông báo',
+  'component.noticeIcon.view-more': 'Xem thêm',
+};
