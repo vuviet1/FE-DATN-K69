@@ -16,7 +16,8 @@ const notificationData = [
   {
     key: 'user-message',
     title: 'Tin nhắn từ sinh viên / đồng nghiệp',
-    description: 'Nhận thông báo khi sinh viên gửi câu hỏi hoặc phản hồi bài tập',
+    description:
+      'Nhận thông báo khi sinh viên gửi câu hỏi hoặc phản hồi bài tập',
     actions: [notificationAction('user-message-switch')],
   },
   {
@@ -28,7 +29,8 @@ const notificationData = [
   {
     key: 'todo-task',
     title: 'Nhắc nhở công việc cần xử lý',
-    description: 'Tự động nhắc các công việc sắp đến hạn (nhập điểm, điểm danh)',
+    description:
+      'Tự động nhắc các công việc sắp đến hạn (nhập điểm, điểm danh)',
     actions: [notificationAction('todo-task-switch')],
   },
 ];

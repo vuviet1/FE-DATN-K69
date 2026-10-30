@@ -12,12 +12,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import {
-  FormattedMessage,
-  Helmet,
-  useIntl,
-  useModel,
-} from '@umijs/max';
+import { FormattedMessage, Helmet, useIntl, useModel } from '@umijs/max';
 import { Alert, App, Button, Tabs } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { startTransition, useState } from 'react';
@@ -247,7 +242,8 @@ const Login: React.FC = () => {
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: 'Tài khoản hoặc mật khẩu không chính xác (admin/ant.design)',
+                defaultMessage:
+                  'Tài khoản hoặc mật khẩu không chính xác (admin/ant.design)',
               })}
             />
           )}

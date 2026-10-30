@@ -35,6 +35,11 @@ const PUBLIC_PATH: string = '/';
 export default defineConfig({
   alias: {
     '@root': join(__dirname, '..'),
+    '@components': join(__dirname, '../src/components'),
+    '@domain': join(__dirname, '../src/domain'),
+    '@infra': join(__dirname, '../src/infra'),
+    '@utils': join(__dirname, '../src/utility'),
+    '@hooks': join(__dirname, '../src/utility/hooks'),
   },
   /**
    * @name Chế độ Hash
@@ -135,9 +140,7 @@ export default defineConfig({
   /**
    * @name Scripts trong thẻ <head>
    */
-  headScripts: [
-    { src: join(PUBLIC_PATH, 'scripts/loading.js'), async: true },
-  ],
+  headScripts: [{ src: join(PUBLIC_PATH, 'scripts/loading.js'), async: true }],
 
   //================ Cấu hình Plugin Pro =================
   plugins: ['@umijs/max-plugin-openapi', '@umijs/request-record'],

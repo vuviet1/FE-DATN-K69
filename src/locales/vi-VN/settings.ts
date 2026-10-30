@@ -29,11 +29,13 @@ export default {
   'app.settings.security.phone': 'Số điện thoại bảo mật',
   'app.settings.security.phone-description': 'Đã liên kết số điện thoại',
   'app.settings.security.question': 'Câu hỏi bảo mật',
-  'app.settings.security.question-description': 'Chưa thiết lập câu hỏi bảo mật',
+  'app.settings.security.question-description':
+    'Chưa thiết lập câu hỏi bảo mật',
   'app.settings.security.email': 'Email dự phòng',
   'app.settings.security.email-description': 'Đã liên kết email',
   'app.settings.security.mfa': 'Xác thực 2 yếu tố (2FA)',
-  'app.settings.security.mfa-description': 'Bảo vệ tài khoản giảng viên an toàn hơn',
+  'app.settings.security.mfa-description':
+    'Bảo vệ tài khoản giảng viên an toàn hơn',
   'app.settings.security.modify': 'Chỉnh sửa',
   'app.settings.security.set': 'Thiết lập',
   'app.settings.security.bind': 'Liên kết',

@@ -122,10 +122,12 @@ const vietnamDivisions: ProvinceData[] = [
   },
 ];
 
-export const provinceOptions: GeographicOption[] = vietnamDivisions.map((item) => ({
-  label: item.name,
-  key: `${item.code}0000`,
-}));
+export const provinceOptions: GeographicOption[] = vietnamDivisions.map(
+  (item) => ({
+    label: item.name,
+    key: `${item.code}0000`,
+  }),
+);
 
 export const getCityOptions = (provinceKey: string): GeographicOption[] => {
   if (!provinceKey) return [];

@@ -1,7 +1,9 @@
 export default {
-  'pages.layouts.userLayout.title': 'Cổng Thông Tin Giảng Viên - Quản Lý Sinh Viên',
+  'pages.layouts.userLayout.title':
+    'Cổng Thông Tin Giảng Viên - Quản Lý Sinh Viên',
   'pages.login.accountLogin.tab': 'Đăng nhập Giảng viên',
-  'pages.login.accountLogin.errorMessage': 'Tên đăng nhập hoặc mật khẩu không chính xác (admin/ant.design)',
+  'pages.login.accountLogin.errorMessage':
+    'Tên đăng nhập hoặc mật khẩu không chính xác (admin/ant.design)',
   'pages.login.failure': 'Đăng nhập thất bại, vui lòng thử lại!',
   'pages.login.success': 'Đăng nhập thành công!',
   'pages.login.username.placeholder': 'Tài khoản giảng viên: admin hoặc user',
@@ -23,18 +25,23 @@ export default {
   'pages.login.loginWith': 'Hoặc đăng nhập bằng:',
   'pages.login.registerAccount': 'Đăng ký tài khoản mới',
   'pages.welcome.link': 'Trang chủ',
-  'pages.welcome.celebrationTitle': 'Chào mừng Thầy/Cô đến với Cổng Quản Lý Sinh Viên',
-  'pages.welcome.alertMessage': 'Hệ thống hỗ trợ giảng viên quản lý danh sách sinh viên, điểm danh, chấm điểm và theo dõi tiến độ học tập.',
+  'pages.welcome.celebrationTitle':
+    'Chào mừng Thầy/Cô đến với Cổng Quản Lý Sinh Viên',
+  'pages.welcome.alertMessage':
+    'Hệ thống hỗ trợ giảng viên quản lý danh sách sinh viên, điểm danh, chấm điểm và theo dõi tiến độ học tập.',
   'pages.404.subTitle': 'Rất tiếc, trang bạn đang truy cập không tồn tại.',
   'pages.404.buttonText': 'Quay về trang chủ',
   'pages.admin.subPage.title': 'Trang này chỉ dành cho Quản trị viên (Admin)',
-  'pages.admin.subPage.alertMessage': 'Bạn đang truy cập trang có quyền đặc biệt.',
+  'pages.admin.subPage.alertMessage':
+    'Bạn đang truy cập trang có quyền đặc biệt.',
   'pages.searchTable.createForm.newRule': 'Thêm sinh viên mới',
   'pages.searchTable.updateForm.ruleConfig': 'Cấu hình thông tin',
   'pages.searchTable.updateForm.basicConfig': 'Thông tin cơ bản',
   'pages.searchTable.updateForm.ruleName.nameLabel': 'Họ và tên',
   'pages.searchTable.updateForm.ruleName.nameRules': 'Vui lòng nhập họ và tên!',
   'pages.searchTable.updateForm.ruleDesc.descLabel': 'Ghi chú',
-  'pages.searchTable.updateForm.ruleDesc.descPlaceholder': 'Nhập ghi chú sinh viên...',
-  'pages.searchTable.updateForm.ruleDesc.descRules': 'Vui lòng nhập ít nhất 5 ký tự!',
+  'pages.searchTable.updateForm.ruleDesc.descPlaceholder':
+    'Nhập ghi chú sinh viên...',
+  'pages.searchTable.updateForm.ruleDesc.descRules':
+    'Vui lòng nhập ít nhất 5 ký tự!',
 };

@@ -176,7 +176,10 @@ const Register: FC = () => {
             },
           ]}
         >
-          <Input size="large" placeholder="Email trường (ví dụ: giangvien@daihoc.edu.vn)" />
+          <Input
+            size="large"
+            placeholder="Email trường (ví dụ: giangvien@daihoc.edu.vn)"
+          />
         </FormItem>
         <Popover
           getPopupContainer={(node) => {
@@ -199,7 +202,10 @@ const Register: FC = () => {
                     marginTop: 10,
                   }}
                 >
-                  <span>Vui lòng nhập ít nhất 6 ký tự. Hãy dùng mật khẩu bảo mật cao.</span>
+                  <span>
+                    Vui lòng nhập ít nhất 6 ký tự. Hãy dùng mật khẩu bảo mật
+                    cao.
+                  </span>
                 </div>
               </div>
             )

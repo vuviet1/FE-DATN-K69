@@ -14,6 +14,16 @@
     "types": ["vitest/globals", "node"],
     "paths": {
       "@/*": ["./src/*"],
+      "@domain": ["./src/domain"],
+      "@domain/*": ["./src/domain/*"],
+      "@infra": ["./src/infra"],
+      "@infra/*": ["./src/infra/*"],
+      "@utils": ["./src/utility"],
+      "@utils/*": ["./src/utility/*"],
+      "@hooks": ["./src/utility/hooks"],
+      "@hooks/*": ["./src/utility/hooks/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
       "@@/*": ["./src/.umi/*"],
       "@@test/*": ["./src/.umi-test/*"],
       "@root/*": ["./*"]

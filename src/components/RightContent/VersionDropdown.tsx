@@ -28,7 +28,11 @@ export const VersionDropdown: React.FC = () => {
         style: { minWidth: 100 },
       }}
     >
-      <Button type="text" className={styles.action} aria-label="Lịch sử phiên bản">
+      <Button
+        type="text"
+        className={styles.action}
+        aria-label="Lịch sử phiên bản"
+      >
         <ForkOutlined />
       </Button>
     </HeaderDropdown>

@@ -6,6 +6,12 @@ export default {
   'menu.dashboard.monitor': 'Progress Monitor',
   'menu.dashboard.workplace': 'Workplace',
 
+  // Academic Management (SIS HUST)
+  'menu.academic': 'Academic & Training',
+  'menu.academic.curriculum': 'Curriculum & Courses',
+  'menu.academic.registration': 'Course Registration',
+  'menu.academic.alerts': 'Academic Warnings',
+
   'menu.students': 'Student Management',
   'menu.students.list': 'Student List',
   'menu.students.warning': 'Academic Warning',
@@ -22,8 +28,23 @@ export default {
   'menu.attendance.checkin': 'Daily Attendance',
   'menu.attendance.report': 'Attendance Report',
 
+  // Student Affairs (CTSV HUST)
+  'menu.ctsv': 'Student Affairs',
+  'menu.ctsv.conduct': 'Conduct Scores',
+  'menu.ctsv.scholarships': 'Scholarships',
+  'menu.ctsv.services': 'Student Services',
+
+  // Tuition & Finance
+  'menu.finance': 'Finance & Tuition',
+  'menu.finance.tuition': 'Credit Tuition',
+
+  // System Administration
   'menu.home': 'Home',
   'menu.admin': 'System Admin',
+  'menu.admin.overview': 'Admin Overview',
+  'menu.admin.users': 'User Accounts',
+  'menu.admin.roles': 'Roles & Permissions',
+  'menu.admin.notifications': 'System Notifications',
   'menu.admin.sub-page': 'Sub-Page',
   'menu.login': 'Login',
   'menu.register': 'Register',

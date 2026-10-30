@@ -69,7 +69,9 @@ const Footer: React.FC = () => {
 
   return (
     <div className={styles.footer}>
-      <div className={styles.copyright}>Cổng Thông Tin Giảng Viên - Quản Lý Sinh Viên &copy; {year}</div>
+      <div className={styles.copyright}>
+        Cổng Thông Tin Giảng Viên - Quản Lý Sinh Viên &copy; {year}
+      </div>
       <div className={styles.meta}>
         <span className={styles.group}>
           <span className={styles.label}>ver</span>

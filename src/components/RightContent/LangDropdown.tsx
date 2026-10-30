@@ -50,7 +50,11 @@ export const LangDropdown: React.FC = () => {
         style: { minWidth: 180 },
       }}
     >
-      <Button type="text" className={styles.action} aria-label="Chuyển đổi ngôn ngữ">
+      <Button
+        type="text"
+        className={styles.action}
+        aria-label="Chuyển đổi ngôn ngữ"
+      >
         <GlobalOutlined />
       </Button>
     </HeaderDropdown>

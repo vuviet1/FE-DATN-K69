@@ -12,11 +12,7 @@ const passwordStrength = {
 const securityData = [
   {
     title: 'Mật khẩu tài khoản',
-    description: (
-      <>
-        Độ mạnh mật khẩu hiện tại: {passwordStrength.strong}
-      </>
-    ),
+    description: <>Độ mạnh mật khẩu hiện tại: {passwordStrength.strong}</>,
     actions: [
       <Button key="Modify" type="link">
         Chỉnh sửa
