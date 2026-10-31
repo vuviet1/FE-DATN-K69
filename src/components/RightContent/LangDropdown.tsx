@@ -3,6 +3,7 @@ import { getAllLocales, getLocale, setLocale } from '@umijs/max';
 import type { MenuProps } from 'antd';
 import { Button } from 'antd';
 import { useMemo } from 'react';
+import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
 import HeaderDropdown from '../HeaderDropdown';
 import useHeaderActionStyles from './style';
 
@@ -13,7 +14,9 @@ const localeLabelMap: Record<string, { emoji: string; label: string }> = {
 
 const onLangClick: MenuProps['onClick'] = ({ key }) => {
   if (key.startsWith('lang-')) {
-    setLocale(key.replace('lang-', ''), false);
+    const nextLocale = key.replace('lang-', '');
+    applyProLayoutLocalePatch(nextLocale);
+    setLocale(nextLocale, false);
   }
 };
 

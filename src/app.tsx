@@ -19,6 +19,7 @@ import {
   OfflineBanner,
 } from '@/components';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
+import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 
@@ -153,6 +154,7 @@ export const layout: RunTimeLayoutConfig = ({
     // unAccessible: <div>unAccessible</div>,
     // Trạng thái loading
     childrenRender: (children) => {
+      applyProLayoutLocalePatch();
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
