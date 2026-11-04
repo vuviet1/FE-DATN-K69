@@ -13,8 +13,8 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'QL Sinh Viên - Giảng Viên',
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  title: 'Mạng Xã Hội Học Tập',
+  logo: '/logo.svg',
   iconfontUrl: '',
   token: {
     // Tùy biến kiểu dáng giao diện thông qua Design Tokens

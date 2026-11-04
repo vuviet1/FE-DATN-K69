@@ -9,6 +9,7 @@ import {
   DocLink,
   LangDropdown,
   NotificationBell,
+  RoleSwitcher,
   VersionDropdown,
 } from './RightContent';
 import { AvatarDropdown } from './RightContent/AvatarDropdown';
@@ -31,5 +32,6 @@ export {
   Footer,
   LangDropdown,
   NotificationBell,
+  RoleSwitcher,
   VersionDropdown,
 };

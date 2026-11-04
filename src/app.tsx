@@ -17,6 +17,7 @@ import {
   LangDropdown,
   NotificationBell,
   OfflineBanner,
+  RoleSwitcher,
 } from '@/components';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
@@ -94,6 +95,7 @@ export const layout: RunTimeLayoutConfig = ({
       const localeEnabled =
         (initialState?.settings as { locale?: boolean })?.locale !== false;
       return [
+        <RoleSwitcher key="role-switcher" />,
         <NotificationBell key="notification" />,
         localeEnabled && <LangDropdown key="lang" />,
       ].filter(Boolean);

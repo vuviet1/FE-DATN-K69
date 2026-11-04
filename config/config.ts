@@ -84,7 +84,7 @@ export default defineConfig({
   /**
    * @name Plugin Layout
    */
-  title: 'QL Sinh Viên - Giảng Viên',
+  title: 'Mạng Xã Hội Học Tập',
   layout: {
     locale: true,
     ...defaultSettings,

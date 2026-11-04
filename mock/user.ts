@@ -1,24 +1,54 @@
 import type { Request, Response } from 'express';
-import { waitTime, defaultUser } from './utils';
+import { defaultUser, waitTime } from './utils';
 
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
 
-/**
- * Quyền hạn người dùng hiện tại, nếu rỗng là chưa đăng nhập
- * current user access, if is '', user needs to login
- * Nếu là preview, mặc định có quyền admin
- */
-let access = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
+let access = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : 'admin';
+
+const mockUserProfiles: Record<string, any> = {
+  admin: {
+    ...defaultUser,
+    name: 'Quản trị viên Hệ thống',
+    userid: 'ADMIN001',
+    email: 'admin@lms.edu.vn',
+    signature: 'Quản trị Hệ thống Mạng xã hội học tập & Quản lý đào tạo',
+    title: 'Quản trị viên cao cấp',
+    group: 'Ban Quản trị Công nghệ Thông tin',
+    access: 'admin',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+  },
+  teacher: {
+    ...defaultUser,
+    name: 'TS. Nguyễn Văn Hùng',
+    userid: 'GV202401',
+    email: 'hung.nguyen@lms.edu.vn',
+    signature: 'Khoa Công Nghệ Thông Tin - Giảng viên Kỹ thuật phần mềm',
+    title: 'Giảng viên chính',
+    group: 'Bộ môn Kỹ thuật Phần mềm',
+    access: 'teacher',
+    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+  },
+  student: {
+    ...defaultUser,
+    name: 'Lê Văn Minh',
+    userid: 'SV2021001',
+    email: 'minh.lv2100@lms.edu.vn',
+    signature: 'Sinh viên K66 - Ngành Khoa học Máy tính',
+    title: 'Sinh viên chính quy',
+    group: 'Lớp Kỹ thuật Lập trình Web - K66',
+    access: 'student',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
+  },
+};
 
 const getAccess = () => {
   return access;
 };
 
-// Tương thích cả mock service local và dữ liệu tĩnh
 export default {
-  // Hỗ trợ giá trị Object và Array
   'GET /api/currentUser': (_req: Request, res: Response) => {
-    if (!getAccess()) {
+    const curAccess = getAccess();
+    if (!curAccess) {
       res.status(401).send({
         data: {
           isLogin: false,
@@ -29,63 +59,97 @@ export default {
       });
       return;
     }
+    const profile = mockUserProfiles[curAccess] || {
+      ...defaultUser,
+      access: curAccess,
+    };
     res.send({
       success: true,
-      data: {
-        ...defaultUser,
-        access: getAccess(),
-      },
+      data: profile,
     });
   },
-  // Có thể lược bỏ GET/POST
+
+  'POST /api/user/switch-role': (req: Request, res: Response) => {
+    const { role } = req.body;
+    if (role && ['admin', 'teacher', 'student'].includes(role)) {
+      access = role;
+      const profile = mockUserProfiles[role];
+      res.send({
+        success: true,
+        data: profile,
+      });
+      return;
+    }
+    res.status(400).send({ success: false, errorMessage: 'Vai trò không hợp lệ' });
+  },
+
   'GET /api/users': [
     {
       key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
+      name: 'TS. Nguyễn Văn Hùng',
+      role: 'teacher',
+      email: 'hung.nguyen@lms.edu.vn',
+      status: 'active',
     },
     {
       key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
+      name: 'Lê Văn Minh',
+      role: 'student',
+      email: 'minh.lv2100@lms.edu.vn',
+      status: 'active',
     },
     {
       key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
+      name: 'Quản trị viên Hệ thống',
+      role: 'admin',
+      email: 'admin@lms.edu.vn',
+      status: 'active',
     },
   ],
+
   'POST /api/login/account': async (req: Request, res: Response) => {
     const { password, username, type } = req.body;
-    await waitTime(2000);
-    if (password === 'ant.design' && username === 'admin') {
+    await waitTime(500);
+
+    const isMatch = password === '123456' || password === 'ant.design';
+
+    if (username === 'admin' && isMatch) {
+      access = 'admin';
       res.send({
         status: 'ok',
         type,
         currentAuthority: 'admin',
       });
-      access = 'admin';
       return;
     }
-    if (password === 'ant.design' && username === 'user') {
+
+    if (username === 'teacher' && isMatch) {
+      access = 'teacher';
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'user',
+        currentAuthority: 'teacher',
       });
-      access = 'user';
       return;
     }
+
+    if ((username === 'student' || username === 'user') && isMatch) {
+      access = 'student';
+      res.send({
+        status: 'ok',
+        type,
+        currentAuthority: 'student',
+      });
+      return;
+    }
+
     if (type === 'mobile') {
+      access = 'admin';
       res.send({
         status: 'ok',
         type,
         currentAuthority: 'admin',
       });
-      access = 'admin';
       return;
     }
 
@@ -96,10 +160,12 @@ export default {
     });
     access = 'guest';
   },
+
   'POST /api/login/outLogin': (_req: Request, res: Response) => {
     access = '';
     res.send({ data: {}, success: true });
   },
+
   'GET /api/500': (_req: Request, res: Response) => {
     res.status(500).send({
       timestamp: 1513932555104,
@@ -138,7 +204,7 @@ export default {
   },
 
   'GET /api/login/captcha': async (_req: Request, res: Response) => {
-    await waitTime(2000);
+    await waitTime(500);
     return res.json('captcha-xxx');
   },
 };

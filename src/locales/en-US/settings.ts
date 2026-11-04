@@ -39,13 +39,15 @@ export default {
   'app.settings.security.modify': 'Modify',
   'app.settings.security.set': 'Set',
   'app.settings.security.bind': 'Bind',
-  'app.settings.binding.taobao': 'Binding Taobao',
-  'app.settings.binding.taobao-description': 'Currently unbound Taobao account',
-  'app.settings.binding.alipay': 'Binding Alipay',
-  'app.settings.binding.alipay-description': 'Currently unbound Alipay account',
-  'app.settings.binding.dingding': 'Binding DingTalk',
+  'app.settings.binding.taobao': 'Binding Google Workspace',
+  'app.settings.binding.taobao-description':
+    'Currently unbound Google Workspace account',
+  'app.settings.binding.alipay': 'Binding Microsoft 365',
+  'app.settings.binding.alipay-description':
+    'Currently unbound Microsoft 365 account',
+  'app.settings.binding.dingding': 'Binding University Portal',
   'app.settings.binding.dingding-description':
-    'Currently unbound DingTalk account',
+    'Currently unbound University Portal account',
   'app.settings.binding.bind': 'Bind',
   'app.settings.notification.password': 'Account Password',
   'app.settings.notification.password-description':

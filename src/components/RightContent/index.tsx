@@ -4,6 +4,7 @@ import { Button, Tooltip } from 'antd';
 import React from 'react';
 import { LangDropdown } from './LangDropdown';
 import { NotificationBell } from './NotificationBell';
+import { RoleSwitcher } from './RoleSwitcher';
 import useHeaderActionStyles from './style';
 import { VersionDropdown } from './VersionDropdown';
 
@@ -24,4 +25,4 @@ export const DocLink: React.FC = () => {
   );
 };
 
-export { LangDropdown, NotificationBell, VersionDropdown };
+export { LangDropdown, NotificationBell, RoleSwitcher, VersionDropdown };

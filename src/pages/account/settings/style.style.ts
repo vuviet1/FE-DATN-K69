@@ -41,26 +41,27 @@ const useStyles = createStyles(({ token }) => {
       fontSize: '20px',
       lineHeight: '28px',
     },
-    taobao: {
+    google: {
       display: 'block',
-      color: '#ff4000',
-      fontSize: '48px',
-      lineHeight: '48px',
+      color: '#ea4335',
+      fontSize: '44px',
+      lineHeight: '44px',
       borderRadius: token.borderRadius,
     },
-    dingding: {
+    windows: {
+      display: 'block',
+      color: '#0078d4',
+      fontSize: '44px',
+      lineHeight: '44px',
+      borderRadius: token.borderRadius,
+    },
+    portal: {
       margin: '2px',
       padding: '6px',
       color: '#fff',
       fontSize: '32px',
       lineHeight: '32px',
-      backgroundColor: '#2eabff',
-      borderRadius: token.borderRadius,
-    },
-    alipay: {
-      color: '#2eabff',
-      fontSize: '48px',
-      lineHeight: '48px',
+      backgroundColor: token.colorPrimary,
       borderRadius: token.borderRadius,
     },
     ':global': {

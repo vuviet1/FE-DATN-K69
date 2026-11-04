@@ -1,33 +1,41 @@
 import {
+  CrownOutlined,
   GithubOutlined,
   GoogleOutlined,
   LockOutlined,
   MailOutlined,
   MobileOutlined,
+  ReadOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import {
   LoginForm,
   ProFormCaptcha,
   ProFormCheckbox,
+  type ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, Helmet, useIntl, useModel } from '@umijs/max';
-import { Alert, App, Button, Tabs } from 'antd';
+import {
+  Alert,
+  App,
+  Button,
+  Divider,
+  Input,
+  Modal,
+  Tabs,
+  Typography,
+} from 'antd';
 import { createStyles } from 'antd-style';
-import React, { startTransition, useState } from 'react';
+import React, { startTransition, useRef, useState } from 'react';
 import { Footer, LangDropdown } from '@/components';
 import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
-import Settings from '../../../../config/defaultSettings';
 
-/**
- * Validate redirect URL to prevent open redirect attacks.
- * Only allow same-origin relative paths starting with '/'.
- */
+const { Text, Paragraph } = Typography;
+
 const getSafeRedirectUrl = (redirect: string | null): string => {
   if (!redirect?.startsWith('/')) return '/';
-
   if (redirect.startsWith('//')) return '/';
 
   try {
@@ -83,7 +91,7 @@ const ActionIcons = () => {
       <GoogleOutlined
         key="GoogleOutlined"
         className={styles.action}
-        title="Đăng nhập Google"
+        title="Đăng nhập Google/SSO"
       />
       <MailOutlined
         key="MailOutlined"
@@ -127,10 +135,13 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
+  const [forgotModalOpen, setForgotModalOpen] = useState<boolean>(false);
+  const [forgotEmail, setForgotEmail] = useState<string>('');
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
   const { message } = App.useApp();
-  const intl = useIntl();
+  const _intl = useIntl();
+  const formRef = useRef<ProFormInstance | undefined>(undefined);
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
@@ -146,42 +157,57 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      // Đăng nhập
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: 'Đăng nhập thành công!',
-        });
-        message.success(defaultLoginSuccessMessage);
+        message.success('Đăng nhập thành công!');
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
-        const redirectUrl = getSafeRedirectUrl(urlParams.get('redirect'));
+        const redirectParam = urlParams.get('redirect');
+
+        // Determine destination based on authority if no specific redirect
+        let defaultTarget = '/teacher/dashboard';
+        if (msg.currentAuthority === 'admin') defaultTarget = '/admin/overview';
+        if (msg.currentAuthority === 'student')
+          defaultTarget = '/student/dashboard';
+
+        const redirectUrl = redirectParam
+          ? getSafeRedirectUrl(redirectParam)
+          : defaultTarget;
         window.location.href = redirectUrl;
         return;
       }
-      // Thiết lập thông báo lỗi khi đăng nhập thất bại
       setUserLoginState(msg);
     } catch {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: 'Đăng nhập thất bại, vui lòng thử lại!',
-      });
-      message.error(defaultLoginFailureMessage);
+      message.error('Đăng nhập thất bại, vui lòng thử lại!');
     }
   };
+
+  const handleQuickLogin = async (username: string, _role: string) => {
+    formRef.current?.setFieldsValue({
+      username,
+      password: '123456',
+    });
+    await handleSubmit({ username, password: '123456', type: 'account' });
+  };
+
+  const handleResetPassword = () => {
+    if (!forgotEmail.trim()) {
+      message.warning('Vui lòng nhập email đăng ký tài khoản!');
+      return;
+    }
+    message.success(
+      `Đã gửi liên kết đặt lại mật khẩu về email: ${forgotEmail}`,
+    );
+    setForgotModalOpen(false);
+    setForgotEmail('');
+  };
+
   const { status, type: loginType } = userLoginState;
 
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>
-          {intl.formatMessage({
-            id: 'menu.login',
-            defaultMessage: 'Đăng nhập',
-          })}
-          {Settings.title && ` - ${Settings.title}`}
-        </title>
+        <title>Đăng nhập - Mạng Xã Hội Học Tập</title>
       </Helmet>
       <Lang />
       <div
@@ -191,16 +217,14 @@ const Login: React.FC = () => {
         }}
       >
         <LoginForm
+          formRef={formRef}
           contentStyle={{
             minWidth: 280,
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title="Cổng Giảng Viên"
-          subTitle={intl.formatMessage({
-            id: 'pages.layouts.userLayout.title',
-            defaultMessage: 'Cổng Quản Lý Sinh Viên Dành Cho Giảng Viên',
-          })}
+          title="Mạng Xã Hội Học Tập"
+          subTitle="Nền tảng Mạng xã hội học tập tích hợp Quản lý lớp học & Giao nhận bài tập trực tuyến"
           initialValues={{
             autoLogin: true,
           }}
@@ -216,6 +240,41 @@ const Login: React.FC = () => {
             await handleSubmit(values as API.LoginParams);
           }}
         >
+          {/* Nút đăng nhập nhanh các vai trò thử nghiệm */}
+          <div style={{ marginBottom: 16 }}>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              Đăng nhập nhanh theo vai trò (Mật khẩu: 123456):
+            </Text>
+            <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+              <Button
+                size="small"
+                style={{ flex: 1, borderColor: '#faad14', color: '#d48806' }}
+                icon={<CrownOutlined />}
+                onClick={() => handleQuickLogin('admin', 'admin')}
+              >
+                Admin
+              </Button>
+              <Button
+                size="small"
+                style={{ flex: 1, borderColor: '#1890ff', color: '#096dd9' }}
+                icon={<ReadOutlined />}
+                onClick={() => handleQuickLogin('teacher', 'teacher')}
+              >
+                Giáo viên
+              </Button>
+              <Button
+                size="small"
+                style={{ flex: 1, borderColor: '#52c41a', color: '#389e0d' }}
+                icon={<UserOutlined />}
+                onClick={() => handleQuickLogin('student', 'student')}
+              >
+                Sinh viên
+              </Button>
+            </div>
+          </div>
+
+          <Divider style={{ margin: '12px 0' }} />
+
           <Tabs
             activeKey={type}
             onChange={setType}
@@ -223,30 +282,19 @@ const Login: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: intl.formatMessage({
-                  id: 'pages.login.accountLogin.tab',
-                  defaultMessage: 'Đăng nhập tài khoản',
-                }),
+                label: 'Tài khoản & Mật khẩu',
               },
               {
                 key: 'mobile',
-                label: intl.formatMessage({
-                  id: 'pages.login.phoneLogin.tab',
-                  defaultMessage: 'Đăng nhập qua SĐT',
-                }),
+                label: 'Đăng nhập qua SĐT / OTP',
               },
             ]}
           />
 
           {status === 'error' && loginType === 'account' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage:
-                  'Tài khoản hoặc mật khẩu không chính xác (admin/ant.design)',
-              })}
-            />
+            <LoginMessage content="Tài khoản hoặc mật khẩu không chính xác hoặc tài khoản đã bị khóa! (Mật khẩu mặc định: 123456)" />
           )}
+
           {type === 'account' && (
             <>
               <ProFormText
@@ -255,19 +303,11 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.username.placeholder',
-                  defaultMessage: 'Tên đăng nhập: admin hoặc user',
-                })}
+                placeholder="Tên đăng nhập / Email (admin, teacher, student)"
                 rules={[
                   {
                     required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.username.required"
-                        defaultMessage="Vui lòng nhập tên đăng nhập!"
-                      />
-                    ),
+                    message: 'Vui lòng nhập tên đăng nhập hoặc email!',
                   },
                 ]}
               />
@@ -277,19 +317,11 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.password.placeholder',
-                  defaultMessage: 'Mật khẩu: ant.design',
-                })}
+                placeholder="Mật khẩu: 123456"
                 rules={[
                   {
                     required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.password.required"
-                        defaultMessage="Vui lòng nhập mật khẩu!"
-                      />
-                    ),
+                    message: 'Vui lòng nhập mật khẩu!',
                   },
                 ]}
               />
@@ -299,6 +331,7 @@ const Login: React.FC = () => {
           {status === 'error' && loginType === 'mobile' && (
             <LoginMessage content="Mã OTP không chính xác" />
           )}
+
           {type === 'mobile' && (
             <>
               <ProFormText
@@ -307,28 +340,15 @@ const Login: React.FC = () => {
                   prefix: <MobileOutlined />,
                 }}
                 name="mobile"
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.phoneNumber.placeholder',
-                  defaultMessage: 'Số điện thoại',
-                })}
+                placeholder="Số điện thoại"
                 rules={[
                   {
                     required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.phoneNumber.required"
-                        defaultMessage="Vui lòng nhập số điện thoại!"
-                      />
-                    ),
+                    message: 'Vui lòng nhập số điện thoại!',
                   },
                   {
                     pattern: /^0\d{9}$/,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.phoneNumber.invalid"
-                        defaultMessage="Số điện thoại không hợp lệ!"
-                      />
-                    ),
+                    message: 'Số điện thoại không hợp lệ!',
                   },
                 ]}
               />
@@ -340,56 +360,38 @@ const Login: React.FC = () => {
                 captchaProps={{
                   size: 'large',
                 }}
-                placeholder={intl.formatMessage({
-                  id: 'pages.login.captcha.placeholder',
-                  defaultMessage: 'Nhập mã OTP',
-                })}
+                placeholder="Nhập mã OTP"
                 captchaTextRender={(timing, count) => {
                   if (timing) {
-                    return `${count} ${intl.formatMessage({
-                      id: 'pages.getCaptchaSecondText',
-                      defaultMessage: 'giây',
-                    })}`;
+                    return `${count} giây`;
                   }
-                  return intl.formatMessage({
-                    id: 'pages.login.phoneLogin.getVerificationCode',
-                    defaultMessage: 'Lấy mã OTP',
-                  });
+                  return 'Lấy mã OTP';
                 }}
                 name="captcha"
                 rules={[
                   {
                     required: true,
-                    message: (
-                      <FormattedMessage
-                        id="pages.login.captcha.required"
-                        defaultMessage="Vui lòng nhập mã OTP!"
-                      />
-                    ),
+                    message: 'Vui lòng nhập mã OTP!',
                   },
                 ]}
                 onGetCaptcha={async (phone) => {
                   const result = await getFakeCaptcha({
                     phone,
                   });
-                  if (!result) {
-                    return;
-                  }
-                  message.success('Mã xác nhận OTP thử nghiệm là: 1234');
+                  if (!result) return;
+                  message.success('Mã OTP thử nghiệm là: 1234');
                 }}
               />
             </>
           )}
+
           <div
             style={{
               marginBottom: 24,
             }}
           >
             <ProFormCheckbox noStyle name="autoLogin">
-              <FormattedMessage
-                id="pages.login.rememberMe"
-                defaultMessage="Ghi nhớ đăng nhập"
-              />
+              Ghi nhớ đăng nhập
             </ProFormCheckbox>
             <Button
               type="link"
@@ -397,14 +399,34 @@ const Login: React.FC = () => {
                 float: 'right',
                 padding: 0,
               }}
+              onClick={() => setForgotModalOpen(true)}
             >
-              <FormattedMessage
-                id="pages.login.forgotPassword"
-                defaultMessage="Quên mật khẩu?"
-              />
+              Quên mật khẩu? (A1)
             </Button>
           </div>
         </LoginForm>
+
+        {/* Modal Quên mật khẩu (A1) */}
+        <Modal
+          title="Quên mật khẩu / Khôi phục tài khoản (A1)"
+          open={forgotModalOpen}
+          onOk={handleResetPassword}
+          onCancel={() => setForgotModalOpen(false)}
+          okText="Gửi liên kết đặt lại"
+          cancelText="Hủy"
+        >
+          <Paragraph>
+            Vui lòng nhập địa chỉ email đã đăng ký tài khoản trong hệ thống.
+            Chúng tôi sẽ gửi hướng dẫn tạo lại mật khẩu mới qua email của bạn:
+          </Paragraph>
+          <Input
+            size="large"
+            prefix={<MailOutlined />}
+            placeholder="Ví dụ: sinhvien@lms.edu.vn"
+            value={forgotEmail}
+            onChange={(e) => setForgotEmail(e.target.value)}
+          />
+        </Modal>
       </div>
       <Footer />
     </div>

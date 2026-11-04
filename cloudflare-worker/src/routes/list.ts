@@ -88,7 +88,10 @@ app.get('/tags', (c) => {
   const list = [];
   for (let i = 0; i < 100; i++) {
     list.push({
-      name: ['Thành phố', 'Tỉnh thành', 'Quận huyện'][Math.floor(Math.random() * 3)] + i,
+      name:
+        ['Thành phố', 'Tỉnh thành', 'Quận huyện'][
+          Math.floor(Math.random() * 3)
+        ] + i,
       value: Math.floor(Math.random() * 100) + 1,
       type: Math.floor(Math.random() * 3),
     });

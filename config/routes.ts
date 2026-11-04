@@ -1,6 +1,6 @@
 /**
- * @name Cấu hình Routes - Hệ Thống Quản Trị Đào Tạo & Sinh Viên Chuẩn HUST & Becoxy
- * @description Định nghĩa đường dẫn và menu cho hệ thống
+ * @name Cấu hình Routes - Mạng Xã Hội Học Tập Tích Hợp Quản Lý Lớp Học & Bài Tập
+ * @description Định nghĩa đường dẫn và menu cho 3 vai trò: Admin, Teacher, Student
  */
 export default [
   {
@@ -23,160 +23,174 @@ export default [
       },
     ],
   },
+
+  // Phân hệ Quản trị Admin (B1 - B6)
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    icon: 'dashboard',
-    component: './dashboard',
-  },
-  {
-    name: 'academic',
-    icon: 'book',
-    path: '/academic',
-    routes: [
-      {
-        path: '/academic',
-        redirect: '/academic/curriculum',
-      },
-      {
-        name: 'curriculum',
-        icon: 'table',
-        path: '/academic/curriculum',
-        component: './academic/curriculum',
-      },
-      {
-        name: 'registration',
-        icon: 'form',
-        path: '/academic/registration',
-        component: './academic/registration',
-      },
-      {
-        name: 'alerts',
-        icon: 'alert',
-        path: '/academic/alerts',
-        component: './academic/alerts',
-      },
-    ],
-  },
-  {
-    path: '/students',
-    name: 'students',
-    icon: 'team',
-    component: './students',
-  },
-  {
-    path: '/classes',
-    name: 'classes',
-    icon: 'read',
-    component: './classes',
-  },
-  {
-    path: '/grades',
-    name: 'grades',
-    icon: 'solution',
-    component: './grades',
-  },
-  {
-    path: '/attendance',
-    name: 'attendance',
-    icon: 'checkCircle',
-    component: './attendance',
-  },
-  {
-    name: 'ctsv',
-    icon: 'heart',
-    path: '/ctsv',
-    routes: [
-      {
-        path: '/ctsv',
-        redirect: '/ctsv/conduct',
-      },
-      {
-        name: 'conduct',
-        icon: 'trophy',
-        path: '/ctsv/conduct',
-        component: './ctsv/conduct',
-      },
-      {
-        name: 'scholarships',
-        icon: 'crown',
-        path: '/ctsv/scholarships',
-        component: './ctsv/scholarships',
-      },
-      {
-        name: 'services',
-        icon: 'fileText',
-        path: '/ctsv/services',
-        component: './ctsv/services',
-      },
-    ],
-  },
-  {
-    name: 'finance',
-    icon: 'dollar',
-    path: '/finance',
-    routes: [
-      {
-        path: '/finance',
-        redirect: '/finance/tuition',
-      },
-      {
-        name: 'tuition',
-        icon: 'wallet',
-        path: '/finance/tuition',
-        component: './finance/tuition',
-      },
-    ],
-  },
-  {
-    name: 'admin',
-    icon: 'safetyCertificate',
     path: '/admin',
+    name: 'admin',
+    icon: 'crown',
+    access: 'canAdmin',
     routes: [
       {
         path: '/admin',
         redirect: '/admin/overview',
       },
       {
+        path: '/admin/overview',
         name: 'overview',
         icon: 'dashboard',
-        path: '/admin/overview',
         component: './admin',
       },
       {
-        name: 'users',
-        icon: 'user',
         path: '/admin/users',
+        name: 'users',
+        icon: 'team',
         component: './admin/users',
       },
       {
-        name: 'roles',
-        icon: 'lock',
-        path: '/admin/roles',
-        component: './admin/roles',
+        path: '/admin/classes',
+        name: 'classes',
+        icon: 'bank',
+        component: './admin/classes',
       },
       {
-        name: 'notifications',
-        icon: 'bell',
-        path: '/admin/notifications',
-        component: './admin/notifications',
+        path: '/admin/import',
+        name: 'import',
+        icon: 'fileExcel',
+        component: './admin/import',
+      },
+      {
+        path: '/admin/posts',
+        name: 'posts',
+        icon: 'message',
+        component: './admin/posts',
+      },
+      {
+        path: '/admin/logs',
+        name: 'logs',
+        icon: 'history',
+        component: './admin/logs',
       },
     ],
   },
+
+  // Phân hệ Giảng viên (Teacher) (C1 - C9)
   {
-    name: 'account',
+    path: '/teacher',
+    name: 'teacher',
+    icon: 'read',
+    access: 'canTeacher',
+    routes: [
+      {
+        path: '/teacher',
+        redirect: '/teacher/dashboard',
+      },
+      {
+        path: '/teacher/dashboard',
+        name: 'dashboard',
+        icon: 'dashboard',
+        component: './teacher/dashboard',
+      },
+      {
+        path: '/teacher/classes',
+        name: 'classes',
+        icon: 'appstore',
+        component: './teacher/classes',
+      },
+      {
+        path: '/teacher/classes/:classId',
+        name: 'classDetail',
+        hideInMenu: true,
+        component: './teacher/classes/detail',
+      },
+      {
+        path: '/teacher/assignments/:assignmentId',
+        name: 'assignmentDetail',
+        hideInMenu: true,
+        component: './teacher/assignments/detail',
+      },
+      {
+        path: '/teacher/submissions/:submissionId',
+        name: 'submissionGrade',
+        hideInMenu: true,
+        component: './teacher/submissions/grade',
+      },
+    ],
+  },
+
+  // Phân hệ Sinh viên (Student) (D1 - D9)
+  {
+    path: '/student',
+    name: 'student',
     icon: 'user',
+    access: 'canStudent',
+    routes: [
+      {
+        path: '/student',
+        redirect: '/student/dashboard',
+      },
+      {
+        path: '/student/dashboard',
+        name: 'dashboard',
+        icon: 'dashboard',
+        component: './student/dashboard',
+      },
+      {
+        path: '/student/classes',
+        name: 'classes',
+        icon: 'appstore',
+        component: './student/classes',
+      },
+      {
+        path: '/student/classes/:classId',
+        name: 'classDetail',
+        hideInMenu: true,
+        component: './student/classes/detail',
+      },
+      {
+        path: '/student/assignments',
+        name: 'assignments',
+        icon: 'form',
+        component: './student/assignments',
+      },
+      {
+        path: '/student/assignments/:assignmentId',
+        name: 'assignmentSubmit',
+        hideInMenu: true,
+        component: './student/assignments/detail',
+      },
+      {
+        path: '/student/submissions/:submissionId',
+        name: 'submissionResult',
+        hideInMenu: true,
+        component: './student/submissions/detail',
+      },
+      {
+        path: '/student/grades',
+        name: 'grades',
+        icon: 'trophy',
+        component: './student/grades',
+      },
+    ],
+  },
+
+  // Trung tâm thông báo chung (A3)
+  {
+    path: '/notifications',
+    name: 'notifications',
+    icon: 'bell',
+    component: './notifications',
+  },
+
+  // Hồ sơ cá nhân & Cài đặt (A2)
+  {
     path: '/account',
+    name: 'account',
+    icon: 'setting',
     routes: [
       {
         path: '/account',
-        redirect: '/account/settings',
-      },
-      {
-        name: 'settings',
-        icon: 'setting',
-        path: '/account/settings',
-        component: './account/settings',
+        redirect: '/account/center',
       },
       {
         name: 'center',
@@ -184,7 +198,37 @@ export default [
         path: '/account/center',
         component: './account/center',
       },
+      {
+        name: 'settings',
+        icon: 'setting',
+        path: '/account/settings',
+        component: './account/settings',
+      },
     ],
+  },
+
+  // Chuyển hướng tương thích
+  {
+    path: '/dashboard',
+    redirect: '/teacher/dashboard',
+  },
+  {
+    path: '/classes',
+    redirect: '/teacher/classes',
+  },
+  {
+    path: '/students',
+    redirect: '/admin/users',
+  },
+  {
+    path: '/grades',
+    redirect: '/student/grades',
+  },
+
+  // Điều hướng gốc
+  {
+    path: '/',
+    redirect: '/teacher/dashboard',
   },
   {
     name: 'exception',
@@ -215,11 +259,6 @@ export default [
         component: './exception/404',
       },
     ],
-  },
-  {
-    path: '/',
-    layout: false,
-    redirect: '/dashboard',
   },
   {
     component: './exception/404',

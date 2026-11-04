@@ -39,6 +39,16 @@ export default {
   'app.settings.security.modify': 'Chỉnh sửa',
   'app.settings.security.set': 'Thiết lập',
   'app.settings.security.bind': 'Liên kết',
+  'app.settings.binding.taobao': 'Liên kết Google Workspace',
+  'app.settings.binding.taobao-description':
+    'Chưa liên kết tài khoản Google học đường',
+  'app.settings.binding.alipay': 'Liên kết Microsoft 365',
+  'app.settings.binding.alipay-description':
+    'Đã liên kết với email school@edu.vn',
+  'app.settings.binding.dingding': 'Liên kết Cổng Đào Tạo Đại Học',
+  'app.settings.binding.dingding-description':
+    'Đồng bộ tự động danh sách lớp và sinh viên',
+  'app.settings.binding.bind': 'Liên kết',
   'app.settings.open': 'Bật',
   'app.settings.close': 'Tắt',
 };

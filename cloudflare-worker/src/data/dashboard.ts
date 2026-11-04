@@ -132,7 +132,8 @@ export function getProjectNotice() {
       id: 'xxx2',
       title: 'Cơ sở dữ liệu phân tán',
       logo: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-      description: 'Công nghệ thông tin và chuyển đổi số trong giáo dục đại học',
+      description:
+        'Công nghệ thông tin và chuyển đổi số trong giáo dục đại học',
       updatedAt: '2026-10-24',
       member: 'Bộ môn Kỹ thuật phần mềm',
       href: '',
@@ -162,7 +163,8 @@ export function getProjectNotice() {
       id: 'xxx5',
       title: 'Công nghệ phần mềm',
       logo: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-      description: 'Khoa học máy tính là nền tảng của mọi sự phát triển hiện đại',
+      description:
+        'Khoa học máy tính là nền tảng của mọi sự phát triển hiện đại',
       updatedAt: '2026-10-23',
       member: 'Nhóm Thị giác máy tính',
       href: '',
