@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 
 // Khởi tạo Mock Database cho LMS Mạng xã hội học tập
-export const mockClasses = [
+const mockClasses = [
   {
     id: 'cls-1',
     code: 'WEB2026',
@@ -80,7 +80,7 @@ export const mockClasses = [
   },
 ];
 
-export const mockPosts = [
+const mockPosts = [
   {
     id: 'post-1',
     classId: 'cls-1',
@@ -168,7 +168,7 @@ export const mockPosts = [
   },
 ];
 
-export const mockAssignments = [
+const mockAssignments = [
   {
     id: 'asm-1',
     classId: 'cls-1',
@@ -225,7 +225,7 @@ export const mockAssignments = [
   },
 ];
 
-export const mockSubmissions = [
+const mockSubmissions = [
   {
     id: 'sub-1',
     assignmentId: 'asm-1',
@@ -342,7 +342,7 @@ export const mockSubmissions = [
   },
 ];
 
-export const mockClassStudents = [
+const mockClassStudents = [
   {
     id: 'SV2021001',
     code: '20210001',
@@ -400,7 +400,7 @@ export const mockClassStudents = [
   },
 ];
 
-export const mockAuditLogs = [
+const mockAuditLogs = [
   {
     id: 'log-1',
     timestamp: '2026-11-04T08:15:20Z',
@@ -451,7 +451,7 @@ export const mockAuditLogs = [
   },
 ];
 
-export const mockNotifications = [
+const mockNotifications = [
   {
     id: 'notif-1',
     type: 'assignment',

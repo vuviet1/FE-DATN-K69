@@ -23,6 +23,7 @@ import {
 import Exception403 from '@/pages/exception/403';
 import Exception404 from '@/pages/exception/404';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
+import { AntdAppBridge } from '@/utils/antdApp';
 import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
@@ -204,7 +205,10 @@ export function rootContainer(container: React.ReactNode) {
     <>
       <OfflineBanner />
       <ErrorBoundary>
-        <App>{container}</App>
+        <App>
+          <AntdAppBridge />
+          {container}
+        </App>
       </ErrorBoundary>
     </>
   );

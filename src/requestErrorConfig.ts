@@ -1,7 +1,7 @@
 import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
 import { getIntl } from '@umijs/max';
-import { message, notification } from 'antd';
+import { message, notification } from '@/utils/antdApp';
 
 // Cấu hình xử lý lỗi: Các loại hiển thị lỗi
 enum ErrorShowType {
