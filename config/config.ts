@@ -40,6 +40,7 @@ export default defineConfig({
     '@infra': join(__dirname, '../src/infra'),
     '@utils': join(__dirname, '../src/utility'),
     '@hooks': join(__dirname, '../src/utility/hooks'),
+    'swagger-ui-dist$': join(__dirname, '../src/utils/swaggerUiShim.js'),
   },
   /**
    * @name Chế độ Hash
