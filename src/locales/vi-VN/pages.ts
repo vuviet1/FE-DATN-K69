@@ -29,8 +29,12 @@ export default {
     'Chào mừng Thầy/Cô đến với Cổng Quản Lý Sinh Viên',
   'pages.welcome.alertMessage':
     'Hệ thống hỗ trợ giảng viên quản lý danh sách sinh viên, điểm danh, chấm điểm và theo dõi tiến độ học tập.',
+  'pages.403.subTitle': 'Rất tiếc, bạn không có quyền truy cập trang này.',
+  'pages.403.buttonText': 'Quay về trang chủ',
   'pages.404.subTitle': 'Rất tiếc, trang bạn đang truy cập không tồn tại.',
   'pages.404.buttonText': 'Quay về trang chủ',
+  'pages.500.subTitle': 'Đã xảy ra sự cố máy chủ nội bộ. Vui lòng thử lại sau.',
+  'pages.500.buttonText': 'Quay về trang chủ',
   'pages.admin.subPage.title': 'Trang này chỉ dành cho Quản trị viên (Admin)',
   'pages.admin.subPage.alertMessage':
     'Bạn đang truy cập trang có quyền đặc biệt.',

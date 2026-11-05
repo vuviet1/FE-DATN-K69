@@ -37,8 +37,12 @@ export default {
   'pages.welcome.infoCard.procomponents.title': 'Learn Pro Components',
   'pages.welcome.infoCard.procomponents.desc':
     'ProComponents provides higher-abstraction template components on top of Ant Design, with one-component-one-page philosophy.',
+  'pages.403.subTitle': 'Sorry, you are not authorized to access this page.',
+  'pages.403.buttonText': 'Back Home',
   'pages.404.subTitle': 'Sorry, the page you visited does not exist.',
   'pages.404.buttonText': 'Back Home',
+  'pages.500.subTitle': 'Sorry, something went wrong on the server.',
+  'pages.500.buttonText': 'Back Home',
   'pages.admin.subPage.title': 'This page can only be viewed by Admin',
   'pages.admin.subPage.alertMessage':
     'Umi ui is now released, welcome to use npm run ui to start the experience.',

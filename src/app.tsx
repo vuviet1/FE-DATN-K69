@@ -19,6 +19,8 @@ import {
   OfflineBanner,
   RoleSwitcher,
 } from '@/components';
+import Exception403 from '@/pages/exception/403';
+import Exception404 from '@/pages/exception/404';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
 import defaultSettings from '../config/defaultSettings';
@@ -152,8 +154,9 @@ export const layout: RunTimeLayoutConfig = ({
     // so chunk load errors show friendly messages instead of "Something went wrong."
     ErrorBoundary,
     menuHeaderRender: undefined,
-    // Tùy biến trang 403
-    // unAccessible: <div>unAccessible</div>,
+    // Tùy biến trang 403 và 404 để loại bỏ 100% trang tiếng Trung mặc định từ Umi Plugin Layout
+    unAccessible: <Exception403 />,
+    noFound: <Exception404 />,
     // Trạng thái loading
     childrenRender: (children) => {
       applyProLayoutLocalePatch();

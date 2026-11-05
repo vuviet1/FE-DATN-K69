@@ -4,7 +4,7 @@ import {
   SwapOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { history, useModel } from '@umijs/max';
+import { useModel } from '@umijs/max';
 import { Button, Dropdown, type MenuProps, message, Tag } from 'antd';
 import React from 'react';
 
@@ -52,7 +52,8 @@ export const RoleSwitcher: React.FC = () => {
         message.success(
           `Đã chuyển vai trò sang: ${roleConfigs[targetRole].label}`,
         );
-        history.push(roleConfigs[targetRole].redirect);
+        // Chuyển trang và làm mới quyền truy cập sạch sẽ cho vai trò mới
+        window.location.href = roleConfigs[targetRole].redirect;
       }
     } catch {
       message.error('Chuyển đổi vai trò thất bại!');
