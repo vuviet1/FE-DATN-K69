@@ -15,7 +15,7 @@ import {
   type ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, Helmet, useIntl, useModel } from '@umijs/max';
+import { FormattedMessage, Helmet, Link, useIntl, useModel } from '@umijs/max';
 import {
   Alert,
   App,
@@ -157,18 +157,41 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {
+      const msg: any = await login({ ...values, type });
+      const isSuccess =
+        msg?.status === 'ok' ||
+        msg?.success === true ||
+        !!msg?.token ||
+        !!msg?.accessToken ||
+        !!msg?.data?.token ||
+        !!msg?.data?.accessToken;
+
+      if (isSuccess) {
+        // Lưu token vào localStorage để các request sau tự động gắn Bearer header
+        const token =
+          msg?.token ||
+          msg?.accessToken ||
+          msg?.data?.token ||
+          msg?.data?.accessToken;
+        if (token && typeof window !== 'undefined') {
+          localStorage.setItem('token', token);
+        }
+
         message.success('Đăng nhập thành công!');
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         const redirectParam = urlParams.get('redirect');
 
-        // Determine destination based on authority if no specific redirect
+        // Phân quyền điều hướng theo vai trò (Admin / Giảng viên / Sinh viên)
+        const authority =
+          msg?.currentAuthority ||
+          msg?.role ||
+          msg?.data?.role ||
+          msg?.data?.currentAuthority;
+
         let defaultTarget = '/teacher/dashboard';
-        if (msg.currentAuthority === 'admin') defaultTarget = '/admin/overview';
-        if (msg.currentAuthority === 'student')
-          defaultTarget = '/student/dashboard';
+        if (authority === 'admin') defaultTarget = '/admin/overview';
+        if (authority === 'student') defaultTarget = '/student/dashboard';
 
         const redirectUrl = redirectParam
           ? getSafeRedirectUrl(redirectParam)
@@ -387,7 +410,7 @@ const Login: React.FC = () => {
 
           <div
             style={{
-              marginBottom: 24,
+              marginBottom: 16,
             }}
           >
             <ProFormCheckbox noStyle name="autoLogin">
@@ -403,6 +426,19 @@ const Login: React.FC = () => {
             >
               Quên mật khẩu? (A1)
             </Button>
+          </div>
+
+          <div
+            style={{
+              textAlign: 'center',
+              marginBottom: 20,
+              fontSize: 14,
+            }}
+          >
+            <span style={{ color: '#8c8c8c' }}>Chưa có tài khoản? </span>
+            <Link to="/user/register" style={{ fontWeight: 600 }}>
+              Đăng ký tài khoản mới ngay
+            </Link>
           </div>
         </LoginForm>
 

@@ -41,6 +41,9 @@ const loginOut = async () => {
   } catch {
     // Local logout has already cleared user state; redirect should still proceed.
   }
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('token');
+  }
   const { search, pathname } = window.location;
   const urlParams = new URL(window.location.href).searchParams;
   const searchParams = new URLSearchParams({

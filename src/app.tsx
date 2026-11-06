@@ -43,10 +43,15 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
+      const msg: any = await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return msg.data;
+      const userData = msg?.data || msg?.user || msg;
+      // Chuẩn hóa quyền: nếu Backend dùng role thay vì access
+      if (userData && !userData.access && userData.role) {
+        userData.access = userData.role;
+      }
+      return userData;
     } catch (_error) {
       const { pathname, search, hash } = history.location;
       history.replace(

@@ -62,7 +62,7 @@ const Register: FC = () => {
   const { styles } = useStyles();
   const [count, setCount]: [number, any] = useState(0);
   const [open, setVisible]: [boolean, any] = useState(false);
-  const [prefix, setPrefix]: [string, any] = useState('86');
+  const [prefix, setPrefix]: [string, any] = useState('84');
   const [popover, setPopover]: [boolean, any] = useState(false);
   const confirmDirty = false;
   let interval: number | undefined;
@@ -107,23 +107,45 @@ const Register: FC = () => {
   const { isPending: submitting, mutate: register } = useMutation({
     mutationFn: (formValues: Store) => {
       const payload = {
+        name: formValues.name,
         mail: formValues.email,
+        email: formValues.email,
+        username: formValues.email,
         password: formValues.password,
         confirm: formValues.confirm,
         mobile: formValues.mobile,
         captcha: formValues.captcha,
-        prefix: formValues.prefix,
+        prefix: formValues.prefix || prefix,
+        role: formValues.role || 'student',
       };
       return fakeRegister(payload);
     },
-    onSuccess: (data, params) => {
-      if (data.status === 'ok') {
+    onSuccess: (data: any, params: any) => {
+      const isSuccess =
+        data?.status === 'ok' ||
+        data?.success === true ||
+        data?.data?.status === 'ok' ||
+        !!data?.token ||
+        !!data?.id;
+
+      if (isSuccess) {
         queryClient.invalidateQueries({ queryKey: ['current-user'] });
         message.success('Đăng ký tài khoản thành công!');
         history.push({
-          pathname: `/user/register-result?account=${params.mail}`,
+          pathname: `/user/register-result?account=${params.mail || params.email}`,
         });
+      } else {
+        message.error(
+          data?.errorMessage || 'Đăng ký tài khoản không thành công!',
+        );
       }
+    },
+    onError: (error: any) => {
+      message.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          'Đăng ký tài khoản thất bại, vui lòng thử lại!',
+      );
     },
   });
   const onFinish = (values: Store) => {
@@ -161,8 +183,29 @@ const Register: FC = () => {
   const passwordStatus = getPasswordStatus(password);
   return (
     <div className={styles.main}>
-      <h3>Đăng Ký Tài Khoản Giảng Viên</h3>
+      <h3>Đăng Ký Tài Khoản Học Tập</h3>
       <Form form={form} name="UserRegister" onFinish={onFinish}>
+        <FormItem
+          name="role"
+          initialValue="student"
+          rules={[{ required: true, message: 'Vui lòng chọn vai trò!' }]}
+        >
+          <Select size="large">
+            <Option value="student">Vai trò: Sinh viên (Student)</Option>
+            <Option value="teacher">Vai trò: Giảng viên (Teacher)</Option>
+          </Select>
+        </FormItem>
+        <FormItem
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: 'Vui lòng nhập họ và tên!',
+            },
+          ]}
+        >
+          <Input size="large" placeholder="Họ và tên đầy đủ" />
+        </FormItem>
         <FormItem
           name="email"
           rules={[
@@ -178,7 +221,7 @@ const Register: FC = () => {
         >
           <Input
             size="large"
-            placeholder="Email trường (ví dụ: giangvien@daihoc.edu.vn)"
+            placeholder="Email trường / cá nhân (ví dụ: student@lms.edu.vn)"
           />
         </FormItem>
         <Popover

@@ -2,11 +2,12 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** Lấy thông tin người dùng hiện tại GET /api/currentUser */
+/** Lấy thông tin người dùng hiện tại GET */
 export async function currentUser(options?: { [key: string]: any }) {
+  const path = process.env.UMI_APP_API_CURRENT_USER_PATH || '/api/currentUser';
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>(path, {
     method: 'GET',
     ...(options || {}),
   });
@@ -20,9 +21,23 @@ export async function outLogin(options?: { [key: string]: any }) {
   });
 }
 
-/** Đăng nhập tài khoản POST /api/login/account */
+/** Đăng nhập tài khoản POST */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  const path = process.env.UMI_APP_API_LOGIN_PATH || '/api/login/account';
+  return request<API.LoginResult>(path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** Đăng ký tài khoản POST */
+export async function register(body: Record<string, any>, options?: { [key: string]: any }) {
+  const path = process.env.UMI_APP_API_REGISTER_PATH || '/api/register';
+  return request<Record<string, any>>(path, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

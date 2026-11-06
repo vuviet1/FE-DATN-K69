@@ -91,11 +91,36 @@ export const errorConfig: RequestConfig = {
   // Bộ chặn yêu cầu (Request Interceptors)
   requestInterceptors: [
     (config: RequestOptions) => {
-      // Tùy biến cấu hình trước khi gửi đi (ví dụ: gắn Token xác thực)
+      // Tự động gắn Token xác thực Bearer nếu người dùng đã đăng nhập
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        if (token) {
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${token}`,
+          };
+        }
+      }
       return config;
     },
   ],
 
   // Bộ chặn phản hồi (Response Interceptors)
-  responseInterceptors: [],
+  responseInterceptors: [
+    (response: any) => {
+      // Tự động lưu Token vào localStorage nếu Backend trả về token trong kết quả
+      const resData = response?.data;
+      if (resData && typeof window !== 'undefined') {
+        const token =
+          resData.token ||
+          resData.accessToken ||
+          resData.data?.token ||
+          resData.data?.accessToken;
+        if (token && typeof token === 'string') {
+          localStorage.setItem('token', token);
+        }
+      }
+      return response;
+    },
+  ],
 };

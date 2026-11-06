@@ -166,6 +166,20 @@ export default {
     res.send({ data: {}, success: true });
   },
 
+  'POST /api/register': (req: Request, res: Response) => {
+    const { email, mail, role, name } = req.body;
+    res.send({
+      success: true,
+      status: 'ok',
+      currentAuthority: role || 'student',
+      data: {
+        email: email || mail,
+        name: name || 'Người dùng mới',
+        role: role || 'student',
+      },
+    });
+  },
+
   'GET /api/500': (_req: Request, res: Response) => {
     res.status(500).send({
       timestamp: 1513932555104,

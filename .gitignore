@@ -13,6 +13,7 @@ _roadhog-api-doc
 .DS_Store
 npm-debug.log*
 yarn-error.log
+.env.local
 
 /coverage
 .idea
