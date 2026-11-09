@@ -24,6 +24,8 @@
       "@hooks/*": ["./src/utility/hooks/*"],
       "@components": ["./src/components"],
       "@components/*": ["./src/components/*"],
+      "@api": ["./src/api"],
+      "@api/*": ["./src/api/*"],
       "@@/*": ["./src/.umi/*"],
       "@@test/*": ["./src/.umi-test/*"],
       "@root/*": ["./*"]

@@ -28,9 +28,8 @@ import {
 } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { startTransition, useRef, useState } from 'react';
+import { getFakeCaptcha, login } from '@/api';
 import { Footer, LangDropdown } from '@/components';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 
 const { Text, Paragraph } = Typography;
 

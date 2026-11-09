@@ -40,6 +40,7 @@ export default defineConfig({
     '@infra': join(__dirname, '../src/infra'),
     '@utils': join(__dirname, '../src/utility'),
     '@hooks': join(__dirname, '../src/utility/hooks'),
+    '@api': join(__dirname, '../src/api'),
     'swagger-ui-dist$': join(__dirname, '../src/utils/swaggerUiShim.js'),
   },
   /**
@@ -185,12 +186,6 @@ export default defineConfig({
     'process.env.BACKEND_URL':
       process.env.BACKEND_URL || 'http://localhost:8080',
     'process.env.UMI_APP_API_BASE_URL': process.env.UMI_APP_API_BASE_URL || '',
-    'process.env.UMI_APP_API_LOGIN_PATH':
-      process.env.UMI_APP_API_LOGIN_PATH || '/api/login/account',
-    'process.env.UMI_APP_API_REGISTER_PATH':
-      process.env.UMI_APP_API_REGISTER_PATH || '/api/register',
-    'process.env.UMI_APP_API_CURRENT_USER_PATH':
-      process.env.UMI_APP_API_CURRENT_USER_PATH || '/api/currentUser',
     __APP_VERSION__: require('./../package.json').version,
     __UMI_VERSION__: require('@umijs/max/package.json').version,
     __UTOO_VERSION__: require('@utoo/pack/package.json').version,

@@ -11,6 +11,7 @@ import React from 'react';
 // Initialize dayjs plugins globally
 dayjs.extend(relativeTime);
 
+import { currentUser as queryCurrentUser } from '@/api';
 import {
   AvatarDropdown,
   ErrorBoundary,
@@ -22,7 +23,6 @@ import {
 } from '@/components';
 import Exception403 from '@/pages/exception/403';
 import Exception404 from '@/pages/exception/404';
-import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { AntdAppBridge } from '@/utils/antdApp';
 import { applyProLayoutLocalePatch } from '@/utils/patchProLayoutLocale';
 import defaultSettings from '../config/defaultSettings';
