@@ -1,46 +1,19 @@
 /**
  * @file requester.ts
- * @description HTTP Client Wrapper (Axios) theo chuẩn mes-client-es becoxy
+ * @description HTTP Client Wrapper (Axios) theo chuẩn cấu hình mes-client-es
  */
 
 import { message } from 'antd';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
+import { getToken } from './api/system/auth';
 
-// Lấy token xác thực từ LocalStorage
-export const getToken = (): string | null => {
-  try {
-    const token = localStorage.getItem('token');
-    return token ? token : null;
-  } catch {
-    return null;
-  }
-};
-
-const axiosInstance = axios.create({
-  timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Request interceptor: tự động đính kèm Bearer token
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getToken();
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
-
-// Response interceptor: xử lý mã lỗi toàn cục
-axiosInstance.interceptors.response.use(
+// Global response interceptor — ngăn chặn crash và xử lý mã lỗi tập trung
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      localStorage.removeItem('access_token');
       localStorage.removeItem('token');
       localStorage.removeItem('userData');
       if (
@@ -51,14 +24,24 @@ axiosInstance.interceptors.response.use(
         window.location.href = '/user/login';
       }
     } else if (!error.response) {
-      message.error(
-        'Lỗi kết nối mạng máy chủ. Vui lòng kiểm tra lại đường truyền!',
-      );
+      message.error('Lỗi kết nối mạng. Vui lòng kiểm tra lại.');
     } else if (error.response?.data?.message) {
       message.error(error.response.data.message);
     }
     return Promise.reject(error);
   },
+);
+
+// Interceptor tự động bổ sung Bearer Token nếu chưa có trong headers
+axios.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token && config.headers && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
 );
 
 const responseBody = <T = any>(response: AxiosResponse<T>): T => response.data;
@@ -68,44 +51,42 @@ export const requester = {
     url: string,
     params: Record<string, any> = {},
     config: AxiosRequestConfig = {},
-  ): Promise<T> =>
-    axiosInstance.get(url, { params, ...config }).then(responseBody),
+  ): Promise<T> => axios.get(url, { params, ...config }).then(responseBody),
 
   post: <T = any>(
     url: string,
     data: Record<string, any> = {},
     config: AxiosRequestConfig = {},
-  ): Promise<T> => axiosInstance.post(url, data, config).then(responseBody),
+  ): Promise<T> => axios.post(url, data, config).then(responseBody),
 
   put: <T = any>(
     url: string,
     data: Record<string, any> = {},
     config: AxiosRequestConfig = {},
-  ): Promise<T> => axiosInstance.put(url, data, config).then(responseBody),
+  ): Promise<T> => axios.put(url, data, config).then(responseBody),
 
   delete: <T = any>(
     url: string,
     params: Record<string, any> = {},
     config: AxiosRequestConfig = {},
-  ): Promise<T> =>
-    axiosInstance.delete(url, { params, ...config }).then(responseBody),
+  ): Promise<T> => axios.delete(url, { params, ...config }).then(responseBody),
 
   export: (
     url: string,
     data: Record<string, any> = {},
     config: AxiosRequestConfig = {},
   ): Promise<Blob> =>
-    axiosInstance
+    axios
       .post(url, data, { responseType: 'blob', ...config })
       .then(responseBody),
 
   postForm: <T = any>(
     url: string,
-    data: FormData,
+    data: any,
     config: AxiosRequestConfig = {},
   ): Promise<T> =>
-    axiosInstance
-      .post(url, data, {
+    axios
+      .postForm(url, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
         ...config,
       })

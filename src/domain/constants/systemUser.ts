@@ -3,6 +3,8 @@
  * @description Định nghĩa các hằng số Tài khoản hệ thống theo chuẩn Mes-Client-ES
  */
 
+import { BASE_URL } from './base';
+
 export const SYSTEM_USER = {
   ACTION_TYPES: {
     GET_PAGING: 'SYSTEM_USER/GET_PAGING',
@@ -14,13 +16,13 @@ export const SYSTEM_USER = {
     RESET_PASSWORD: 'SYSTEM_USER/RESET_PASSWORD',
   },
   URL_API: {
-    GET_PAGING_API: '/api/system/users',
-    GET_BY_ID_API: '/api/system/users/:id',
-    ADD_API: '/api/system/users',
-    UPDATE_API: '/api/system/users/:id',
-    DELETE_API: '/api/system/users/:id',
-    TOGGLE_STATUS_API: '/api/system/users/:id/toggle-status',
-    RESET_PASSWORD_API: '/api/system/users/:id/reset-password',
+    GET_PAGING_API: `${BASE_URL}/api/system/users`,
+    GET_BY_ID_API: `${BASE_URL}/api/system/users/:id`,
+    ADD_API: `${BASE_URL}/api/system/users`,
+    UPDATE_API: `${BASE_URL}/api/system/users/:id`,
+    DELETE_API: `${BASE_URL}/api/system/users/:id`,
+    TOGGLE_STATUS_API: `${BASE_URL}/api/system/users/:id/toggle-status`,
+    RESET_PASSWORD_API: `${BASE_URL}/api/system/users/:id/reset-password`,
   },
   ROLES: [
     { label: 'Quản trị viên (Admin)', value: 'admin', color: 'red' },

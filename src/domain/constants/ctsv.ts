@@ -1,20 +1,32 @@
 /**
  * @file ctsv.ts
- * @description Định nghĩa hằng số phân hệ Công tác sinh viên (CTSV HUST)
+ * @description Định nghĩa hằng số phân hệ Công tác sinh viên (CTSV HUST) theo chuẩn mes-client-es
  */
 
+import { BASE_URL } from './base';
+
 export const CTSV = {
+  ACTION_TYPES: {
+    GET_CONDUCT_PAGING: 'CTSV/GET_CONDUCT_PAGING',
+    UPDATE_CONDUCT: 'CTSV/UPDATE_CONDUCT',
+    APPROVE_CONDUCT: 'CTSV/APPROVE_CONDUCT',
+    GET_SCHOLARSHIPS_PAGING: 'CTSV/GET_SCHOLARSHIPS_PAGING',
+    APPROVE_SCHOLARSHIP: 'CTSV/APPROVE_SCHOLARSHIP',
+    GET_SERVICES_PAGING: 'CTSV/GET_SERVICES_PAGING',
+    CREATE_SERVICE: 'CTSV/CREATE_SERVICE',
+    PROCESS_SERVICE: 'CTSV/PROCESS_SERVICE',
+  },
   URL_API: {
-    CONDUCT_GET_PAGING_API: '/api/ctsv/conduct',
-    CONDUCT_UPDATE_API: '/api/ctsv/conduct/:id',
-    CONDUCT_APPROVE_API: '/api/ctsv/conduct/approve',
+    CONDUCT_GET_PAGING_API: `${BASE_URL}/api/ctsv/conduct`,
+    CONDUCT_UPDATE_API: `${BASE_URL}/api/ctsv/conduct/:id`,
+    CONDUCT_APPROVE_API: `${BASE_URL}/api/ctsv/conduct/approve`,
 
-    SCHOLARSHIPS_GET_PAGING_API: '/api/ctsv/scholarships',
-    SCHOLARSHIPS_APPROVE_API: '/api/ctsv/scholarships/approve',
+    SCHOLARSHIPS_GET_PAGING_API: `${BASE_URL}/api/ctsv/scholarships`,
+    SCHOLARSHIPS_APPROVE_API: `${BASE_URL}/api/ctsv/scholarships/approve`,
 
-    SERVICES_GET_PAGING_API: '/api/ctsv/services',
-    SERVICES_CREATE_API: '/api/ctsv/services',
-    SERVICES_PROCESS_API: '/api/ctsv/services/:id/process',
+    SERVICES_GET_PAGING_API: `${BASE_URL}/api/ctsv/services`,
+    SERVICES_CREATE_API: `${BASE_URL}/api/ctsv/services`,
+    SERVICES_PROCESS_API: `${BASE_URL}/api/ctsv/services/:id/process`,
   },
 
   CONDUCT_CLASSIFICATIONS: {

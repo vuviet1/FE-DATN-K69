@@ -186,6 +186,8 @@ export default defineConfig({
     'process.env.BACKEND_URL':
       process.env.BACKEND_URL || 'http://localhost:8080',
     'process.env.UMI_APP_API_BASE_URL': process.env.UMI_APP_API_BASE_URL || '',
+    'process.env.REACT_APP_BASE_URL':
+      process.env.REACT_APP_BASE_URL || process.env.UMI_APP_API_BASE_URL || '',
     __APP_VERSION__: require('./../package.json').version,
     __UMI_VERSION__: require('@umijs/max/package.json').version,
     __UTOO_VERSION__: require('@utoo/pack/package.json').version,

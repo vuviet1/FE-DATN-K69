@@ -3,14 +3,16 @@
  * @description Định nghĩa các hằng số nghiệp vụ Điểm danh theo chuẩn Mes-Client-ES
  */
 
+import { BASE_URL } from './base';
+
 export const ATTENDANCE = {
   ACTION_TYPES: {
     GET_BY_DATE_CLASS: 'ATTENDANCE/GET_BY_DATE_CLASS',
     SAVE_ATTENDANCE: 'ATTENDANCE/SAVE_ATTENDANCE',
   },
   URL_API: {
-    GET_BY_DATE_CLASS_API: '/api/attendance',
-    SAVE_ATTENDANCE_API: '/api/attendance/save',
+    GET_BY_DATE_CLASS_API: `${BASE_URL}/api/attendance`,
+    SAVE_ATTENDANCE_API: `${BASE_URL}/api/attendance/save`,
   },
   STATUS: {
     PRESENT: 'present',

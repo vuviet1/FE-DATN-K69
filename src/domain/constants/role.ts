@@ -4,6 +4,7 @@
  */
 
 import type { IPermissionModule } from '../models/IRole';
+import { BASE_URL } from './base';
 
 export const ROLE = {
   ACTION_TYPES: {
@@ -15,12 +16,12 @@ export const ROLE = {
     UPDATE_PERMISSIONS: 'ROLE/UPDATE_PERMISSIONS',
   },
   URL_API: {
-    GET_ALL_API: '/api/system/roles',
-    GET_BY_ID_API: '/api/system/roles/:id',
-    ADD_API: '/api/system/roles',
-    UPDATE_API: '/api/system/roles/:id',
-    DELETE_API: '/api/system/roles/:id',
-    UPDATE_PERMISSIONS_API: '/api/system/roles/:id/permissions',
+    GET_ALL_API: `${BASE_URL}/api/system/roles`,
+    GET_BY_ID_API: `${BASE_URL}/api/system/roles/:id`,
+    ADD_API: `${BASE_URL}/api/system/roles`,
+    UPDATE_API: `${BASE_URL}/api/system/roles/:id`,
+    DELETE_API: `${BASE_URL}/api/system/roles/:id`,
+    UPDATE_PERMISSIONS_API: `${BASE_URL}/api/system/roles/:id/permissions`,
   },
 };
 

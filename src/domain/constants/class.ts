@@ -3,6 +3,8 @@
  * @description Định nghĩa các hằng số nghiệp vụ Lớp học theo chuẩn Mes-Client-ES
  */
 
+import { BASE_URL } from './base';
+
 export const CLASS = {
   ACTION_TYPES: {
     GET_PAGING: 'CLASS/GET_PAGING',
@@ -12,11 +14,11 @@ export const CLASS = {
     DELETE: 'CLASS/DELETE',
   },
   URL_API: {
-    GET_PAGING_API: '/api/classes',
-    GET_BY_ID_API: '/api/classes/:id',
-    ADD_API: '/api/classes',
-    UPDATE_API: '/api/classes/:id',
-    DELETE_API: '/api/classes/:id',
+    GET_PAGING_API: `${BASE_URL}/api/classes`,
+    GET_BY_ID_API: `${BASE_URL}/api/classes/:id`,
+    ADD_API: `${BASE_URL}/api/classes`,
+    UPDATE_API: `${BASE_URL}/api/classes/:id`,
+    DELETE_API: `${BASE_URL}/api/classes/:id`,
   },
   STATUS: {
     ACTIVE: 'active',

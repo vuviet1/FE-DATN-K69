@@ -3,6 +3,8 @@
  * @description Định nghĩa các hằng số nghiệp vụ Sinh viên theo chuẩn Mes-Client-ES
  */
 
+import { BASE_URL } from './base';
+
 export const STUDENT = {
   ACTION_TYPES: {
     GET_PAGING: 'STUDENT/GET_PAGING',
@@ -13,12 +15,12 @@ export const STUDENT = {
     EXPORT: 'STUDENT/EXPORT',
   },
   URL_API: {
-    GET_PAGING_API: '/api/students',
-    GET_BY_ID_API: '/api/students/:id',
-    ADD_API: '/api/students',
-    UPDATE_API: '/api/students/:id',
-    DELETE_API: '/api/students/:id',
-    EXPORT_API: '/api/students/export',
+    GET_PAGING_API: `${BASE_URL}/api/students`,
+    GET_BY_ID_API: `${BASE_URL}/api/students/:id`,
+    ADD_API: `${BASE_URL}/api/students`,
+    UPDATE_API: `${BASE_URL}/api/students/:id`,
+    DELETE_API: `${BASE_URL}/api/students/:id`,
+    EXPORT_API: `${BASE_URL}/api/students/export`,
   },
   STATUS: {
     STUDYING: 'studying',

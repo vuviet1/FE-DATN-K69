@@ -3,6 +3,8 @@
  * @description Định nghĩa các hằng số Cấu hình thông báo theo chuẩn Mes-Client-ES
  */
 
+import { BASE_URL } from './base';
+
 export const NOTIFICATION = {
   ACTION_TYPES: {
     GET_PAGING: 'NOTIFICATION/GET_PAGING',
@@ -14,13 +16,13 @@ export const NOTIFICATION = {
     REVOKE: 'NOTIFICATION/REVOKE',
   },
   URL_API: {
-    GET_PAGING_API: '/api/system/notifications',
-    GET_BY_ID_API: '/api/system/notifications/:id',
-    CREATE_API: '/api/system/notifications',
-    UPDATE_API: '/api/system/notifications/:id',
-    DELETE_API: '/api/system/notifications/:id',
-    PUBLISH_API: '/api/system/notifications/:id/publish',
-    REVOKE_API: '/api/system/notifications/:id/revoke',
+    GET_PAGING_API: `${BASE_URL}/api/system/notifications`,
+    GET_BY_ID_API: `${BASE_URL}/api/system/notifications/:id`,
+    CREATE_API: `${BASE_URL}/api/system/notifications`,
+    UPDATE_API: `${BASE_URL}/api/system/notifications/:id`,
+    DELETE_API: `${BASE_URL}/api/system/notifications/:id`,
+    PUBLISH_API: `${BASE_URL}/api/system/notifications/:id/publish`,
+    REVOKE_API: `${BASE_URL}/api/system/notifications/:id/revoke`,
   },
   TYPES: [
     { label: 'Hệ thống & Kỹ thuật', value: 'system', color: 'blue' },
